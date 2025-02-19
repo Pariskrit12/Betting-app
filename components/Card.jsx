@@ -29,7 +29,7 @@ export default function Card() {
           Football
         </p>
         <p className="text-gray-500">Thu,Feb 20222222222222222222222222222</p>
-        <p className="text-gray-500">Thu,Feb hello</p>
+        
       </div>
       <div className=" w-[10rem] mx-[5.5rem] ">
         <div className="flex gap-1 items-center px-[1rem]">
