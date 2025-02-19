@@ -1,16 +1,21 @@
 "use client"
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 export default function Card() {
-
+  const[match,setMatch]=useState([]);
   useEffect(()=>{
     const fetchMatches=async()=>{
       try {
         const response=await axios.get("api/matchcontroller/fetchmatch");
         console.log(response.data);
+        
+        const matches=response.data.message;
+
+        console.log(matches);
+        
       } catch (error) {
         console.log("Error in fetching match",error)
       }
@@ -23,7 +28,7 @@ export default function Card() {
         <p className="bg-gray-900 h-[1.5rem] w-[5rem] px-[0.6rem] rounded-lg font-semibold">
           Football
         </p>
-        <p className="text-gray-500">Thu,Feb 20</p>
+        <p className="text-gray-500">Thu,Feb 20222222222222222222222222222</p>
       </div>
       <div className=" w-[10rem] mx-[5.5rem] ">
         <div className="flex gap-1 items-center px-[1rem]">
