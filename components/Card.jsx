@@ -6,17 +6,17 @@ import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 export default function Card() {
 
-  // useEffect(()=>{
-  //   const fetchMatches=async()=>{
-  //     try {
-  //       const response=await axios.get("api/matchcontroller/fetchmatch");
-  //       console.log(response.data);
-  //     } catch (error) {
-  //       console.log("Error in fetching match",error)
-  //     }
-  //   }
-  //   fetchMatches()
-  // },[])
+  useEffect(()=>{
+    const fetchMatches=async()=>{
+      try {
+        const response=await axios.get("api/matchcontroller/fetchmatch");
+        console.log(response.data);
+      } catch (error) {
+        console.log("Error in fetching match",error)
+      }
+    }
+    fetchMatches()
+  },[])
   return (
     <div className="h-[20rem] w-[20rem] border-[1px] ml-[2rem] mt-[5px] rounded-xl text-white border-gray-500">
       <div className="flex justify-between p-[1rem]">
