@@ -71,7 +71,7 @@ export default function Form({ type }) {
                 name="username"
                 required
                 placeholder="username"
-                className="w-[20rem] h-[4rem]   bg-black  border-none focus:outline-none"
+                className=" group/input w-[20rem] h-[4rem]   bg-black  border-none focus:outline-none text-white"
               />
             </div>
             {type === "Register" && (
@@ -83,7 +83,7 @@ export default function Form({ type }) {
                     name="email"
                     required
                     placeholder="email"
-                    className="w-[20rem] h-[4rem]   bg-black  border-none focus:outline-none"
+                    className="w-[20rem] h-[4rem]   bg-black  border-none focus:outline-none text-white"
                   />
                 </div>
                 <div className="flex items-center bg-black rounded-xl px-[2rem] text-white gap-[12px] border-[1px] border-blue-800">
@@ -116,7 +116,7 @@ export default function Form({ type }) {
                 name="password"
                 required
                 placeholder="password"
-                className="w-[20rem] h-[4rem]   bg-black border-none focus:outline-none "
+                className="w-[20rem] h-[4rem]   bg-black border-none focus:outline-none text-white "
               />
             </div>
             <div className=" bg-gradient-to-b from-blue-500 to-gray-700 w-[10rem] px-[3.1rem] py-[0.5rem] border-none rounded-xl">

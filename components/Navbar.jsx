@@ -1,8 +1,18 @@
+"use client"
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeadphones, faBell } from "@fortawesome/free-solid-svg-icons";
 
+import { useRouter } from "next/navigation";
+
 export default function Navbar() {
+  const router = useRouter();
+
+  const handleLoginClick = () => {
+    
+      router.push("/api/auth/signin");
+  
+  };
   return (
     <nav className="bg-[#0c0f23]  sticky w-full z-20 top-0 start-0 border-b-[1px] border-gray-500 ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between  mx-auto p-4">
@@ -15,11 +25,22 @@ export default function Navbar() {
           <div className="flex ">
             <button
               type="button"
-              className="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="text-white bg-gradient-to-b from-blue-800 to-gray-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Browse Bets
             </button>
           </div>
+
+          <div className="flex ">
+            <button
+              onClick={handleLoginClick}
+              type="button"
+              className="text-white bg-gradient-to-b from-blue-800 to-gray-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Login
+            </button>
+          </div>
+
           <ul className="text-white font-semibold flex gap-[1rem]">
             <li>
               <span className="flex items-center gap-[3px]">
@@ -32,8 +53,8 @@ export default function Navbar() {
             </li>
             <li>Hello jack</li>
           </ul>
-          
-            <FontAwesomeIcon icon={faBell} className="text-white h-[1rem]" />
+
+          <FontAwesomeIcon icon={faBell} className="text-white h-[1rem]" />
         </div>
       </div>
     </nav>
