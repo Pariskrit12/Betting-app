@@ -7,8 +7,8 @@ export default function layout({ children }) {
     <div>
       <Navbar />
       <div className="flex bg-black min-h-screen ">
-        <Sidebar />
-        <div className="">{children}</div>
+        {/* <Sidebar /> */}
+        {/* <div className="">{children}</div> */}
       </div>
     </div>
   );

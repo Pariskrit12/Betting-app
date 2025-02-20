@@ -1,18 +1,56 @@
-"use client"
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeadphones, faBell } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeadphones,
+  faBell,
+  faHamburger,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const router = useRouter();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
   const handleLoginClick = () => {
-    
-      router.push("/api/auth/signin");
-  
+    router.push("/api/auth/signin");
   };
+
+  const navItems = [
+    {
+      type: "button",
+      label: "Browse Bets",
+      className:
+        "text-white bg-gradient-to-b from-blue-800 to-gray-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800",
+    },
+    {
+      type: "button",
+      label: "Login",
+      onClick: handleLoginClick,
+      className:
+        "text-white bg-gradient-to-b from-blue-800 to-gray-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center",
+    },
+    {
+      type: "link",
+      label: "Support",
+      icon: faHeadphones,
+      href: "#",
+    },
+    {
+      type: "text",
+      label: "Hello jack",
+    },
+    {
+      type: "icon",
+      icon: faBell,
+    },
+  ];
+
   return (
     <nav className="bg-[#0c0f23]  sticky w-full z-20 top-0 start-0 border-b-[1px] border-gray-500 ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between  mx-auto p-4">
@@ -21,41 +59,88 @@ export default function Navbar() {
             BetApp
           </span>
         </div>
-        <div className="flex items-center gap-[1rem]">
-          <div className="flex ">
-            <button
-              type="button"
-              className="text-white bg-gradient-to-b from-blue-800 to-gray-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Browse Bets
-            </button>
-          </div>
-
-          <div className="flex ">
-            <button
-              onClick={handleLoginClick}
-              type="button"
-              className="text-white bg-gradient-to-b from-blue-800 to-gray-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Login
-            </button>
-          </div>
-
-          <ul className="text-white font-semibold flex gap-[1rem]">
-            <li>
-              <span className="flex items-center gap-[3px]">
+        <div className="md:flex hidden items-center gap-[1rem]">
+          {navItems.map((items, index) => (
+            <div key={index}>
+              {items.type === "button" && (
+                <button
+                  type="button"
+                  className={items.className}
+                  onClick={items.onClick}
+                >
+                  {items.label}
+                </button>
+              )}
+              {items.type === "link" && (
+                <span className="flex items-center gap-[3px] text-white font-semibold">
+                  <FontAwesomeIcon
+                    className="flex-shrink-0 h-[15px] "
+                    icon={items.icon}
+                  />
+                  <a href={items.href}>{items.label}</a>
+                </span>
+              )}
+              {items.type === "text" && (
+                <span className="text-white font-semibold">{items.label}</span>
+              )}
+              {items.type === "icon" && (
                 <FontAwesomeIcon
-                  className="flex-shrink-0 h-[15px] "
-                  icon={faHeadphones}
+                  icon={items.icon}
+                  className="text-white h-[1rem]"
                 />
-                <a href="">Support</a>
-              </span>
-            </li>
-            <li>Hello jack</li>
-          </ul>
-
-          <FontAwesomeIcon icon={faBell} className="text-white h-[1rem]" />
+              )}
+            </div>
+          ))}
         </div>
+        <div className="md:hidden">
+          <button onClick={toggleDropdown} className="text-white h-[1rem]">
+            <FontAwesomeIcon icon={faHamburger} />
+          </button>
+        </div>
+        <>
+          <div
+            className={`md:hidden absolute  ${
+              isDropdownOpen ? "right-0" : " -right-80"
+            } bg-[#0c0f23] border-[1px] top-16 duration-150  border-gray-500 rounded-l-lg w-[15rem] h-screen  p-[2rem]`}
+          >
+            <div className="flex flex-col items-center gap-[1rem]">
+              {navItems.map((items, index) => (
+                <div key={index}>
+                  {items.type === "button" && (
+                    <button
+                      type="button"
+                      className={items.className}
+                      onClick={items.onClick}
+                    >
+                      {items.label}
+                    </button>
+                  )}
+                  {items.type === "link" && (
+                    <span className="flex items-center gap-[3px] text-white font-semibold">
+                      <FontAwesomeIcon
+                        className="flex-shrink-0 h-[15px] "
+                        icon={items.icon}
+                      />
+                      <a href={items.href}>{items.label}</a>
+                    </span>
+                  )}
+                  {items.type === "text" && (
+                    <span className="text-white font-semibold">
+                      {items.label}
+                    </span>
+                  )}
+                  {items.type === "icon" && (
+                    <FontAwesomeIcon
+                      icon={items.icon}
+                      className="text-white h-[1rem]"
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+        
       </div>
     </nav>
   );
