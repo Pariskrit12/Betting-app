@@ -29,8 +29,6 @@ export default function page() {
       </div>
       <div className="grid md:grid-cols-3 grid-cols-2 gap-1">
         <Card />
-        <Card />
-        <Card />
       </div>
     </>
   );

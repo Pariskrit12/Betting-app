@@ -5,26 +5,51 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
-export default function Card() {
+export default function Card({leagueType}) {
   const [matches, setMatches] = useState([]);
-  useEffect(() => {
-    const fetchMatches = async () => {
+
+  useEffect(()=>{
+    const fetchMatches=async()=>{
       try {
-        const response = await axios.get("/api/matchcontroller/fetchmatch");
-        console.log(response.data);
-        const match = response.data.message;
-        setMatches(match);
+        let endpoint="";
+  
+        if(leagueType==="UCL"){
+          endpoint="/api/matchcontroller/fetchuclmatch";
+        }if(leagueType==="premierLeague"){
+          endpoint="/api/matchcontroller/fetchPLmatches";
+        }if(leagueType==="Bundesliga"){
+          endpoint="/api/matchcontroller/fetchBundesligaMatches"
+        }
+        if(endpoint){
+          const response=await axios.get(endpoint);
+          console.log(response.data);
+          const match=response.data.data;
+          // setMatches(match);
+        }
       } catch (error) {
-        console.log("Error in fetching matches", error);
+        console.log("Error in fetching matches",error);
       }
-    };
-    fetchMatches();
-  }, []);
+    }
+    fetchMatches()
+  },[leagueType]);
+  // useEffect(() => {
+  //   const fetchMatches = async () => {
+  //     try {
+  //       const response = await axios.get("/api/matchcontroller/fetchuclmatch");
+  //       console.log(response.data);
+  //       const match = response.data.message;
+  //       setMatches(match);
+  //     } catch (error) {
+  //       console.log("Error in fetching matches", error);
+  //     }
+  //   };
+  //   fetchMatches();
+  // }, []);
   return (
     <>
       {Array.isArray(matches) &&
         matches.map((match) => (
-          <div className="h-[20rem] w-[20rem] border-[1px] ml-[2rem] mt-[5px] rounded-xl text-white border-gray-500">
+          <div key={match.id} className="h-[20rem] w-[20rem] border-[1px] ml-[2rem] mt-[5px] rounded-xl text-white border-gray-500">
             <div className="flex justify-between p-[1rem]">
               <p className="bg-gray-900 h-[1.5rem] w-[5rem] px-[0.6rem] rounded-lg font-semibold">
                 Football

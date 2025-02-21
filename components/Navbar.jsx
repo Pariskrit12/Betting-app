@@ -52,8 +52,8 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-[#0c0f23]  sticky w-full z-20 top-0 start-0 border-b-[1px] border-gray-500 ">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between  mx-auto p-4">
+    <nav className="bg-[#0c0f23] sticky w-full z-20 top-0 start-0 border-b-[1px] border-gray-500 ">
+      <div className=" max-w-screen-xl flex flex-wrap items-center justify-between  mx-auto p-4">
         <div>
           <span className="self-center text-2xl font-bold whitespace-nowrap text-blue-800">
             BetApp
@@ -92,55 +92,54 @@ export default function Navbar() {
             </div>
           ))}
         </div>
+
         <div className="md:hidden">
           <button onClick={toggleDropdown} className="text-white h-[1rem]">
             <FontAwesomeIcon icon={faHamburger} />
           </button>
         </div>
-        <>
-          <div
-            className={`md:hidden absolute  ${
-              isDropdownOpen ? "right-0" : " -right-80"
-            } bg-[#0c0f23] border-[1px] top-16 duration-150  border-gray-500 rounded-l-lg w-[15rem] h-screen  p-[2rem]`}
-          >
-            <div className="flex flex-col items-center gap-[1rem]">
-              {navItems.map((items, index) => (
-                <div key={index}>
-                  {items.type === "button" && (
-                    <button
-                      type="button"
-                      className={items.className}
-                      onClick={items.onClick}
-                    >
-                      {items.label}
-                    </button>
-                  )}
-                  {items.type === "link" && (
-                    <span className="flex items-center gap-[3px] text-white font-semibold">
-                      <FontAwesomeIcon
-                        className="flex-shrink-0 h-[15px] "
-                        icon={items.icon}
-                      />
-                      <a href={items.href}>{items.label}</a>
-                    </span>
-                  )}
-                  {items.type === "text" && (
-                    <span className="text-white font-semibold">
-                      {items.label}
-                    </span>
-                  )}
-                  {items.type === "icon" && (
+
+        <div
+          className={`md:hidden absolute z-50  ${
+            isDropdownOpen ? "right-0 " : " right-[-20rem]"
+          } bg-[#0c0f23] border-[1px] top-16 duration-150  border-gray-500 rounded-l-lg w-[15rem] h-screen  p-[2rem]`}
+        >
+          <div className="flex flex-col items-center gap-[1rem]">
+            {navItems.map((items, index) => (
+              <div key={index}>
+                {items.type === "button" && (
+                  <button
+                    type="button"
+                    className={items.className}
+                    onClick={items.onClick}
+                  >
+                    {items.label}
+                  </button>
+                )}
+                {items.type === "link" && (
+                  <span className="flex items-center gap-[3px] text-white font-semibold">
                     <FontAwesomeIcon
+                      className="flex-shrink-0 h-[15px] "
                       icon={items.icon}
-                      className="text-white h-[1rem]"
                     />
-                  )}
-                </div>
-              ))}
-            </div>
+                    <a href={items.href}>{items.label}</a>
+                  </span>
+                )}
+                {items.type === "text" && (
+                  <span className="text-white font-semibold">
+                    {items.label}
+                  </span>
+                )}
+                {items.type === "icon" && (
+                  <FontAwesomeIcon
+                    icon={items.icon}
+                    className="text-white h-[1rem]"
+                  />
+                )}
+              </div>
+            ))}
           </div>
-        </>
-        
+        </div>
       </div>
     </nav>
   );

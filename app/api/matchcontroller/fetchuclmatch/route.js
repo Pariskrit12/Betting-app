@@ -10,15 +10,17 @@ export const GET = async (req, res) => {
         },
       }
     );
+    const limit=10
     const matches = response.data.matches;
 
     const today = new Date().toISOString().split("T")[0];
 
-    const matchesFromToday = matches.filter((match) => match.utcDate >= today);
+    const matchesFromToday = matches.filter((match) => match.utcDate >= today).splice(0,limit);
     
     return NextResponse.json(
       {
-        message: matchesFromToday,
+        message: "Successfully Fetched UCL matches",
+        data:matchesFromToday
       },
       {
         status: 200,
@@ -27,7 +29,8 @@ export const GET = async (req, res) => {
   } catch (error) {
     return NextResponse.json(
       {
-        message: "Failed to fetch data",
+        message: "Unable to fetch matches of premier league",
+        error:error.message
       },
       {
         status: 500,
