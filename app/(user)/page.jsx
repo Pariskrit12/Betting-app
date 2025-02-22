@@ -10,7 +10,7 @@ export default function page() {
  
   return (
     <>
-      <div className=" mt-[2.7rem] shadow-2xl rounded-lg w-[95%] ml-[2rem] text-white bg-gradient-to-b from-blue-800 to-gray-800 h-[18rem]">
+      <div className=" mt-[2.7rem] shadow-2xl rounded-lg md:w-[95%] w-[50%] ml-[2rem] text-white bg-gradient-to-b from-blue-800 to-gray-800 h-[18rem]">
         <div className="flex flex-col ml-[3rem] pt-[2rem]">
           <h className="text-5xl font-bold ">Join The Fun</h>
           <h className="text-5xl font-bold ">Betting MarketPlace!</h>

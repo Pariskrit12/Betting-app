@@ -9,7 +9,7 @@ export default function layout({ children }) {
       <div className="flex bg-black min-h-screen ">
 
         <Sidebar />
-        {/* <div className="">{children}</div> */}
+        <div className="">{children}</div>
       </div>
     </div>
   );

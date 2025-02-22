@@ -8,8 +8,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Navbar() {
+  const { data: session } = useSession();
+  console.log("session", session);
   const router = useRouter();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -21,10 +24,20 @@ export default function Navbar() {
     router.push("/api/auth/signin");
   };
 
+  const handleBrowseBets = () => {
+   
+    if (!session) {
+      router.push("/api/auth/signin");
+      return;
+    }
+
+    router.push("/browse-bets");
+  };
   const navItems = [
     {
       type: "button",
       label: "Browse Bets",
+      onClick: handleBrowseBets,
       className:
         "text-white bg-gradient-to-b from-blue-800 to-gray-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800",
     },
@@ -43,7 +56,7 @@ export default function Navbar() {
     },
     {
       type: "text",
-      label: "Hello jack",
+      label:`Hello ${session?.user?.username || "Guest"}`,
     },
     {
       type: "icon",
@@ -99,7 +112,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        <div
+        {/* <div
           className={`md:hidden absolute z-50  ${
             isDropdownOpen ? "right-0 " : " right-[-20rem]"
           } bg-[#0c0f23] border-[1px] top-16 duration-150  border-gray-500 rounded-l-lg w-[15rem] h-screen  p-[2rem]`}
@@ -139,7 +152,7 @@ export default function Navbar() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </nav>
   );
