@@ -6,10 +6,14 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { login } from "@/store/slice/authSlice";
 
 export default function Form({ type }) {
   const router = useRouter();
   const [error, setError] = useState("");
+
+  const dispatch=useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,6 +31,7 @@ export default function Form({ type }) {
       setError(result.error);
       console.log("Error");
     } else {
+      dispatch(login({username}));
       router.push("/");
     }
   };

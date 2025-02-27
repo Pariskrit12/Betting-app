@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function page() {
   return (
     <>
-    <div className="text-white bg-blue-300 mt-[2.8rem] ml-[2rem] bg-gradient-to-b from-blue-800 to-gray-800 rounded-lg items-center h-[18rem] gap-[6rem] p-[2rem] flex">
+    <div className="text-white bg-blue-300 mt-[2.8rem] mx-[2rem] bg-gradient-to-b from-blue-800 to-gray-800 rounded-lg items-center h-[18rem] gap-[6rem] p-[2rem] flex">
       <div>
       <h1 className="text-4xl font-bold">Bet As Much As you can</h1>
       <p className="text-2xl">It's a free world of betting</p>

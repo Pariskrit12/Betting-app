@@ -1,18 +1,16 @@
 import dbConnect from "@/lib/dbConnect";
 import { User } from "@/model/user.model";
-import { data } from "autoprefixer";
 
 import { NextResponse } from "next/server";
 
-export const GET = async (req, res) => {
+export const GET = async (req, { params }) => {
   try {
     await dbConnect();
-   const url=new URL(req.url);
+    const url = new URL(req.url);
+    // const idd=await params.id
+    // console.log("paramsmslfsadkfjsdlakfjsdkfjdsl",idd)
 
-   const id=url.pathname.split('/').pop()
-
-    console.log(id)
-    
+    const id = url.pathname.split("/").pop();
 
     if (!id) {
       return NextResponse.json(

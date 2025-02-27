@@ -8,11 +8,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Navbar() {
   const { data: session } = useSession();
-  console.log("session", session);
+ //const dispatch=useDispatch()
+ //const user=useSelector(state=>state.auth.user)
   const router = useRouter();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -23,15 +24,26 @@ export default function Navbar() {
   const handleLoginClick = () => {
     router.push("/api/auth/signin");
   };
-
+  const handleLogoutClick = async () => {
+    await signOut({ redirect: false });
+    //dispatch(logout({username}))
+    router.push("/");
+  };
   const handleBrowseBets = () => {
-   
     if (!session) {
       router.push("/api/auth/signin");
       return;
     }
 
     router.push("/browse-bets");
+  };
+
+  const handleProfile = () => {
+    if (!session) {
+      router.push("/api/auth/signin");
+      return;
+    }
+    router.push("/profile");
   };
   const navItems = [
     {
@@ -41,13 +53,26 @@ export default function Navbar() {
       className:
         "text-white bg-gradient-to-b from-blue-800 to-gray-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800",
     },
-    {
-      type: "button",
-      label: "Login",
-      onClick: handleLoginClick,
-      className:
-        "text-white bg-gradient-to-b from-blue-800 to-gray-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center",
-    },
+    // add the Login or Logout button based on session
+    ...(session
+      ? [
+          {
+            type: "button",
+            label: "Logout",
+            onClick: handleLogoutClick,
+            className:
+              "text-white bg-gradient-to-b from-red-800 to-gray-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center",
+          },
+        ]
+      : [
+          {
+            type: "button",
+            label: "Login",
+            onClick: handleLoginClick,
+            className:
+              "text-white bg-gradient-to-b from-blue-800 to-gray-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center",
+          },
+        ]),
     {
       type: "link",
       label: "Support",
@@ -56,7 +81,8 @@ export default function Navbar() {
     },
     {
       type: "text",
-      label:`Hello ${session?.user?.username || "Guest"}`,
+      onClick: handleProfile,
+      label: `Hello ${session?.user?.username || "Guest"}`,
     },
     {
       type: "icon",
@@ -94,7 +120,9 @@ export default function Navbar() {
                 </span>
               )}
               {items.type === "text" && (
-                <span className="text-white font-semibold">{items.label}</span>
+                <span className="text-white font-semibold cursor-pointer" onClick={items.onClick}>
+                  {items.label}
+                </span>
               )}
               {items.type === "icon" && (
                 <FontAwesomeIcon

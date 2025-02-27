@@ -1,8 +1,11 @@
+import dbConnect from "@/lib/dbConnect";
+import { User } from "@/model/user.model";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 export const POST = async (req, res) => {
+  await dbConnect();
   //Creates paymentIntent
   //A PaymentIntent is a Stripe object that represents an attempt to collect payment from a user.
   //It ensures that the payment process is secure and handles edge cases like authentication and retries.
@@ -24,7 +27,23 @@ export const POST = async (req, res) => {
       currency: "usd",
       metadata:{userId}
     });
+    
 
+    const updateBalance=await User.findByIdAndUpdate(
+      userId , 
+      { $inc: { balance: amount } } ,
+      {new:true}
+    );
+    if (updateBalance.modifiedCount === 0) {
+      return NextResponse.json(
+        {
+          message: "Balance not updated",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
     return NextResponse.json(
       { clientSecret: paymentIntent.client_secret,message:"PaymentIntent created successfully" },
       { status: 200 }
